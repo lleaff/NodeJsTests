@@ -2,17 +2,14 @@
 
 process.title = 'basicReadline';
 
-var stdin = (function() {
-  return (process
-          .openStdin()
-          .addListener('data', readLine));
-})();
-
-function readLine (input) {
-  if (!testQuit(input))
-    return;
-  input = ((input && input.toString().trim()) || 'nothing');
-  console.log('This be ' + input + '... y\'know?');
+function readLine (callback) {
+  var stdin = process.openStdin();
+  stdin.addListener('data', function(e) {
+    var str = e.toString();
+    callback(str.substr(0, str.length - 1));
+    stdin.removeListener('data', callback);
+    stdin.pause();
+  });
 }
 
 function testQuit(input) {
@@ -25,3 +22,12 @@ function testQuit(input) {
     return (true);
   }
 }
+
+function processInput(input) {
+  if (!testQuit(input))
+    return;
+  input = ((input && input.toString().trim()) || 'nothing');
+  console.log('This be ' + input + '... y\'know?');
+}
+
+readLine(processInput);
