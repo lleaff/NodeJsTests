@@ -1,0 +1,9 @@
+{
+    "name": "node.js tests",
+    "eslintConfig": {
+        "env": {
+            "browser": false,
+            "node": true
+        }
+    }
+}
