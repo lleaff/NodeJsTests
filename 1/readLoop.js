@@ -34,9 +34,8 @@ function prompt(callback, options) {
   }, options.str);
 }
 
-module.exports.prompt = {
+module.exports = {
   readLoop: readLoop,
   testQuit: testQuit,
   prompt: prompt
-
-}
+};
